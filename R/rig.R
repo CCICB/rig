@@ -188,7 +188,7 @@ tailor_gene_names_to_signature <- function(dataset_genes, signature_gene_set = r
   }
 
   if(n_missing_genes > 0 & !require_all_genes_found & verbose) {
-    cli::cli_alert_info("Successfully tailored {n_missing_genes}/{n_total_sig_genes} to your dataset")
+    cli::cli_alert_info("Successfully tailored {n_missing_genes}/{n_total_sig_genes} gene names in the signature to your dataset")
   }
 
   # Return the matched gene names
