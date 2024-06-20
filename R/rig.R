@@ -181,7 +181,7 @@ tailor_gene_names_to_signature <- function(dataset_genes, signature_gene_set = r
   missing_signature_genes <- unique(names(signature_gene_set)[sapply(matched_genes, function(g) all(is.na(g)))])
   n_missing_genes = length(na.omit(missing_signature_genes))
   n_total_sig_genes = length(signature_gene_set)
-  n_found_genes = n_missing_genes-n_total_sig_genes
+  n_found_genes = n_total_sig_genes - n_missing_genes
 
 
   # If any signature genes are not found and the requirement is to find all signature genes, throw an error
