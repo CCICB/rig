@@ -1,0 +1,59 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# rig
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of rig is to identify Radiation Induced Glioma (RIG) signatures by analyzing gene expression data and looking for overexpression of RIG genes within a given cohort.
+
+rig bases classification on the proportion of RIG genes that are overexpressed (based on robust Zscore approaches) so will only work if your RIG samples make up <50% of the cohort you supply.
+
+If your RNAseq pipeline doesn't compute expression for some of the genes (e.g. the long noncoding RNAs), rig automatically adjusts the metrics and should still perform sensibly.
+
+## Installation
+
+You can install the development version of rig from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("selkamand/rig")
+```
+
+## Example
+
+Use the rig package to identify RIG signatures in your dataset:
+
+```{r example}
+library(rig)
+
+# Load example data
+data <- rig_example_data()
+
+# Print the example data
+print(head(data))
+
+# Identify RIG signatures in the example data
+rig_identification <- rig_predict(data, col_samples = "sample_id", col_genes = "gene", col_expression = "expression")
+
+# Print the identification results
+print(rig_identification)
+
+```
+
+# Plot Results
+
+Plots coming soon
