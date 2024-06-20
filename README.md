@@ -53,7 +53,7 @@ print(head(data))
 
 # Identify RIG signatures in the example data
 rig_identification <- rig_predict(data, col_samples = "sample_id", col_genes = "gene", col_expression = "expression")
-#> ℹ Successfully tailored 49/59 gene names in the signature to your dataset
+#> ℹ Successfully tailored -10/59 gene names in the signature to your dataset
 ```
 
 ``` r
