@@ -181,6 +181,8 @@ tailor_gene_names_to_signature <- function(dataset_genes, signature_gene_set = r
   missing_signature_genes <- unique(names(signature_gene_set)[sapply(matched_genes, function(g) all(is.na(g)))])
   n_missing_genes = length(na.omit(missing_signature_genes))
   n_total_sig_genes = length(signature_gene_set)
+  n_found_genes = n_missing_genes-n_total_sig_genes
+
 
   # If any signature genes are not found and the requirement is to find all signature genes, throw an error
   if(n_missing_genes > 0 & require_all_genes_found) {
@@ -188,7 +190,7 @@ tailor_gene_names_to_signature <- function(dataset_genes, signature_gene_set = r
   }
 
   if(n_missing_genes > 0 & !require_all_genes_found & verbose) {
-    cli::cli_alert_info("Successfully tailored {n_missing_genes}/{n_total_sig_genes} gene names in the signature to your dataset")
+    cli::cli_alert_info("Successfully tailored {n_found_genes}/{n_total_sig_genes} gene names in the signature to your dataset")
   }
 
   # Return the matched gene names
