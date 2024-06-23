@@ -40,6 +40,9 @@ A data.frame with sample-level summaries including the number and proportion of 
 This function identifies Radiation Induced Glioma (RIG) signatures by looking for overexpression of RIG genes within a given cohort.
 Predictions will only be accurate if RIGs make up <50\% of the samples supplied.
 }
+\details{
+The default RIG gene signature used was first described by Donson et al., 2007. If you find this package useful, please cite this paper. For more information, see \url{https://doi.org/10.1097/nen.0b013e3181257190}.
+}
 \examples{
 \dontrun{
 data <- data.frame(
@@ -50,4 +53,5 @@ data <- data.frame(
 rig_identification <- rig_predict(data, 'sample_id', 'gene', 'expression')
 print(rig_identification)
 }
+
 }

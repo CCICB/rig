@@ -82,6 +82,9 @@ rig_example_data <- function(){
 #' rig_identification <- rig_predict(data, 'sample_id', 'gene', 'expression')
 #' print(rig_identification)
 #' }
+#'
+#' @details
+#' The default RIG gene signature used was first described by Donson et al., 2007. If you find this package useful, please cite this paper. For more information, see \url{https://doi.org/10.1097/nen.0b013e3181257190}.
 rig_predict <- function(data, col_samples, col_genes, col_expression,
                         signature = rig_genes(),
                         classification_threshold = 0.7,

@@ -18,6 +18,9 @@ If your RNAseq pipeline doesn’t compute expression for some of the genes
 (e.g. the long noncoding RNAs), rig automatically adjusts the metrics
 and should still perform sensibly.
 
+The RIG signature used in this package was first described by [Donson et
+al., 2007](https://doi.org/10.1097/nen.0b013e3181257190).
+
 ## Installation
 
 You can install the development version of rig from
