@@ -7,7 +7,7 @@
 #' @examples
 #' rig_genes()
 rig_genes <- function(published_only = FALSE){
- df <- read.csv(system.file("RIG_expression_profile_genes.txt", package = "rig"), sep = "\t")
+ df <- utils::read.csv(system.file("RIG_expression_profile_genes.txt", package = "rig"), sep = "\t")
  ls <- strsplit(df[["ValidGeneNames"]], split = ",")
  names(ls) <- df[["Gene"]]
 
@@ -84,7 +84,7 @@ rig_example_data <- function(){
 #' }
 rig_predict <- function(data, col_samples, col_genes, col_expression,
                         signature = rig_genes(),
-                        threshold = 0.7,
+                        classification_threshold = 0.7,
                         expression_threshold = 1.3,
                         require_all_genes_found = FALSE
                         ) {
@@ -113,7 +113,7 @@ rig_predict <- function(data, col_samples, col_genes, col_expression,
   data <- data[data[[col_genes]] %in% sig_genes, , drop = FALSE]
 
   # Compute robust Z-scores for each gene in the signature
-  data[["zscore"]] <- ave(data[[col_expression]], data[[col_genes]], FUN = distrikit::compute_zscore_robust)
+  data[["zscore"]] <- stats::ave(data[[col_expression]], data[[col_genes]], FUN = distrikit::compute_zscore_robust)
 
   # Compute per-sample summaries
 
@@ -131,7 +131,7 @@ rig_predict <- function(data, col_samples, col_genes, col_expression,
   median_zscore_per_sample <- tapply(
     data[["zscore"]],
     data[[col_samples]],
-    function(z) { median(z, na.rm = TRUE) }
+    function(z) { stats::median(z, na.rm = TRUE) }
   )
 
   # Compile per-sample results into a summary data.frame
@@ -143,7 +143,7 @@ rig_predict <- function(data, col_samples, col_genes, col_expression,
   )
 
   # Identify RIG based on the proportion of overexpressed RIG genes
-  sample_summary[["predicted_to_be_rig"]] <- sample_summary[["prop_overexpressed_rig_genes"]] >= threshold
+  sample_summary[["predicted_to_be_rig"]] <- sample_summary[["prop_overexpressed_rig_genes"]] >= classification_threshold
 
 
   return(sample_summary)
@@ -158,6 +158,7 @@ rig_predict <- function(data, col_samples, col_genes, col_expression,
 #' @param dataset_genes A character vector of gene names from your expression dataset.
 #' @param signature_gene_set A named list where each element is a character vector of valid gene names for a single gene, and names are the common names for those genes.
 #' @param require_all_genes_found A boolean indicating whether an error should be thrown if there are genes in the signature gene set that cannot be found in the expression dataset. Defaults to TRUE.
+#' @param verbose verbose (flag)
 #' @return A character vector of gene names that are present in 'dataset_genes' and correspond to the signature_gene_set.
 #' @export
 #'
@@ -179,7 +180,7 @@ tailor_gene_names_to_signature <- function(dataset_genes, signature_gene_set = r
 
   # Identify signature genes that are not present in the expression dataset
   missing_signature_genes <- unique(names(signature_gene_set)[sapply(matched_genes, function(g) all(is.na(g)))])
-  n_missing_genes = length(na.omit(missing_signature_genes))
+  n_missing_genes = length(stats::na.omit(missing_signature_genes))
   n_total_sig_genes = length(signature_gene_set)
   n_found_genes = n_total_sig_genes - n_missing_genes
 
@@ -194,7 +195,7 @@ tailor_gene_names_to_signature <- function(dataset_genes, signature_gene_set = r
   }
 
   # Return the matched gene names
-  return(na.omit(matched_genes))
+  return(stats::na.omit(matched_genes))
 }
 
 

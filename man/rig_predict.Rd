@@ -10,7 +10,7 @@ rig_predict(
   col_genes,
   col_expression,
   signature = rig_genes(),
-  threshold = 0.7,
+  classification_threshold = 0.7,
   expression_threshold = 1.3,
   require_all_genes_found = FALSE
 )
@@ -27,11 +27,11 @@ It must contain at least 3 columns: one for gene names, one for gene expression 
 
 \item{signature}{A named list where each element is a character vector of valid gene names for a single gene, and names are the common names for those genes. Defaults to \code{rig_genes()}.}
 
+\item{classification_threshold}{The proportion of RIG genes that must be overexpressed before the sample is classified as a RIG}
+
 \item{expression_threshold}{The robust Zscore above which a rig gene is considered overexpressed.}
 
 \item{require_all_genes_found}{A boolean indicating whether an error should be thrown if there are genes in the signature gene set that cannot be found in the expression dataset. Defaults to FALSE.}
-
-\item{classification_threshold}{The proportion of RIG genes that must be overexpressed before the sample is classified as a RIG}
 }
 \value{
 A data.frame with sample-level summaries including the number and proportion of overexpressed RIG genes, median z-scores, and a prediction of Radiation Induced Glioma status.

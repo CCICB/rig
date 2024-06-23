@@ -17,6 +17,8 @@ tailor_gene_names_to_signature(
 \item{signature_gene_set}{A named list where each element is a character vector of valid gene names for a single gene, and names are the common names for those genes.}
 
 \item{require_all_genes_found}{A boolean indicating whether an error should be thrown if there are genes in the signature gene set that cannot be found in the expression dataset. Defaults to TRUE.}
+
+\item{verbose}{verbose (flag)}
 }
 \value{
 A character vector of gene names that are present in 'dataset_genes' and correspond to the signature_gene_set.
